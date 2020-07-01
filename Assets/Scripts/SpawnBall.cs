@@ -32,8 +32,8 @@ public class SpawnBall : MonoBehaviour
 
     Color[] LoadBallColors()
     {
-        string ballDataString = File.ReadAllText(Application.dataPath + "/ballcolors.json");
-        BallData ballData = JsonUtility.FromJson<BallData>(ballDataString);
+        TextAsset ballDataString = Resources.Load<TextAsset>("ballcolors");
+        BallData ballData = JsonUtility.FromJson<BallData>(ballDataString.ToString());
         return ballData.colors;
     }
 
