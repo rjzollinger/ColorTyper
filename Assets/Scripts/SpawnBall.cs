@@ -18,20 +18,23 @@ public class SpawnBall : MonoBehaviour
     public Transform player;
     public bool ballExists;
 
-    public Color[] colors = new Color[5];
+    private Color[] ballColors;
 
     // Start is called before the first frame update
     void Start()
     {
-        colors[0] = Color.red;
-        colors[1] = Color.blue;
-        colors[2] = Color.green;
-        colors[3] = Color.yellow;
-        colors[4] = Color.magenta;
+        ballColors = LoadBallColors();
 
         speed = 10;
 
         ballExists = false;
+    }
+
+    Color[] LoadBallColors()
+    {
+        string ballDataString = File.ReadAllText(Application.dataPath + "/ballcolors.json");
+        BallData ballData = JsonUtility.FromJson<BallData>(ballDataString);
+        return ballData.colors;
     }
 
     // Update is called once per frame
@@ -39,27 +42,18 @@ public class SpawnBall : MonoBehaviour
     {
         if (!ballExists && !manager.GetComponent<Manager>().gameLost)
         {
-            //Debug.Log("spawning");
-            //TextAsset jsonTextFile = Resources.Load("ball") as TextAsset;
-            //Ball ball = JsonUtility.FromJson<Ball>(jsonTextFile.text);
-            //Debug.Log(ball.gameObject);
-            //GameObject newBall = Instantiate(ball.GameObject, transform.position, Quaternion.identity) as GameObject;
-            //newBall.AddComponent<MoveBall>();
-
             GameObject newBall = Instantiate(ball, transform.position, Quaternion.identity) as GameObject;
             newBall.GetComponent<MoveBall>().player = player;
             newBall.GetComponent<MoveBall>().speed = speed;
-            int colorIndex = Random.Range(0, colors.Length);
-            newBall.GetComponent<Renderer>().material.color = colors[colorIndex];
+
+            Color ballColor = ballColors[Random.Range(0, ballColors.Length)];
+            newBall.GetComponent<Renderer>().material.color = ballColor;
+            
             ButtonL.GetComponent<CheckCorrect>().currentBall = newBall;
             ButtonC.GetComponent<CheckCorrect>().currentBall = newBall;
             ButtonR.GetComponent<CheckCorrect>().currentBall = newBall;
-            AssignAllButtonColors(colors[colorIndex]);
+            AssignAllButtonColors(ballColor);
             ballExists = true;
-
-            string ballJson = EditorJsonUtility.ToJson(newBall);
-
-            File.WriteAllText(Application.persistentDataPath + "/ball.json", ballJson);
         }
     }
 

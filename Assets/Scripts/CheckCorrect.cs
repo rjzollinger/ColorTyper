@@ -30,7 +30,7 @@ public class CheckCorrect : MonoBehaviour
                 spawner.GetComponent<SpawnBall>().speed += 1;
                 //Debug.Log(spawner.GetComponent<SpawnBall>().speed);
                 spawner.GetComponent<SpawnBall>().ballExists = false;
-                Debug.Log(manager.GetComponent<Manager>().ballsCorrect);
+                //Debug.Log(manager.GetComponent<Manager>().ballsCorrect);
             }
         }
     }

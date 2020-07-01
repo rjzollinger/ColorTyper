@@ -774,12 +774,6 @@ MonoBehaviour:
   speed: 10
   player: {fileID: 931738362}
   ballExists: 0
-  colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &1103741039
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +805,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreDisplay: {fileID: 1878147109}
   highScoreDisplay: {fileID: 274594517}
-  currentBall: {fileID: 0}
   gameLost: 0
   ballsCorrect: 0
   currentScore: 0
